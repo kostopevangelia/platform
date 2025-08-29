@@ -1,7 +1,6 @@
 services:
   mysql:
     image: mysql:8
-    container_name: mysql
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-payment_service}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change-me}
@@ -21,7 +20,6 @@ services:
     build:
       context: ./fraud-detection
       dockerfile: Dockerfile
-    container_name: fraud-detection
     environment:
       MODEL_DIR: ${MODEL_DIR:-/app/src/models}
     ports:
@@ -40,7 +38,6 @@ services:
     build:
       context: ./payment-system
       dockerfile: Dockerfile
-    container_name: payment-system
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-payment_service}
       SPRING_DATASOURCE_USERNAME: root
