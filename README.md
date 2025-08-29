@@ -49,3 +49,18 @@ curl -X POST http://localhost:8000/score \
 }'
 
 (/payment/init will bring the fraud score)
+
+Troubleshooting section
+
+## Troubleshooting
+- If containers fail, check logs:
+  ```bash
+  docker compose logs -f
+
+
+If submodules are empty:
+
+git submodule update --init --recursive
+
+
+Make sure ports 8080, 8000, 3307 are free.
