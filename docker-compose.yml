@@ -1,45 +1,59 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:8
     container_name: mysql
     environment:
-      MYSQL_DATABASE: payment_service
-      MYSQL_ROOT_PASSWORD: "18sep2000*"
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-payment_service}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change-me}
     ports:
-      - "3307:3306"
+      - "${MYSQL_PORT_HOST:-3307}:3306"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p18sep2000* | grep 'mysqld is alive'"]
-      interval: 5s
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p${MYSQL_ROOT_PASSWORD} | grep 'mysqld is alive'"]
+      interval: 10s
       timeout: 5s
       retries: 10
-    volumes:
-      - mysql_data:/var/lib/mysql
-  
+    restart: unless-stopped
+
   fraud-detection:
     build:
       context: ./fraud-detection
       dockerfile: Dockerfile
     container_name: fraud-detection
+    environment:
+      MODEL_DIR: ${MODEL_DIR:-/app/src/models}
     ports:
       - "8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http:localhost:8080/docs')"]
-      interval: 5s
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/docs')"]
+      interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
   payment-system:
     build:
       context: ./payment-system
       dockerfile: Dockerfile
     container_name: payment-system
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-payment_service}
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change-me}
+      FRAUD_API_URL: http://fraud-detection:8000
     ports:
       - "8080:8080"
     depends_on:
       mysql:
         condition: service_healthy
-    restart: on-failure
+      fraud-detection:
+        condition: service_healthy
+    restart: unless-stopped
+
 volumes:
   mysql_data:
