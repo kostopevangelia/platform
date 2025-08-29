@@ -1,0 +1,6 @@
+[submodule "payment-system"]
+	path = payment-system
+	url = https://gitlab.com/evangeliakostop/payment-system.git
+[submodule "fraud-detection"]
+	path = fraud-detection
+	url = https://gitlab.com/evangeliakostop/fraud-detection.git
