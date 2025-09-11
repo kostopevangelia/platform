@@ -4,8 +4,8 @@ services:
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-payment_service}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change-me}
-    ports:
-      - "${MYSQL_PORT_HOST:-3307}:3306"
+    expose:
+      - "3306"                # μόνο στο internal network
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
       - mysql_data:/var/lib/mysql
@@ -21,15 +21,15 @@ services:
       context: ./fraud-detection
       dockerfile: Dockerfile
     environment:
-      MODEL_DIR: ${MODEL_DIR:-/app/src/models}
-    ports:
-      - "8000:8000"
+      MODEL_DIR: ${MODEL_DIR:-/app/models}
+    expose:
+      - "8000"                # δεν κάνει publish στο host
     depends_on:
       mysql:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/docs')"]
-      interval: 10s
+      interval: 10m
       timeout: 5s
       retries: 5
     restart: unless-stopped
@@ -44,7 +44,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change-me}
       FRAUD_API_URL: http://fraud-detection:8000/predict-fraud
     ports:
-      - "8080:8080"
+      - "8080"                # τυχαία host port -> ΠΟΤΕ conflict
     depends_on:
       mysql:
         condition: service_healthy
