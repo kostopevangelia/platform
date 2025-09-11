@@ -13,7 +13,8 @@ docker compose up -d --build
 ```
 
 ## Endpoints
-Spring Boot Swagger: http://localhost:8080/swagger-ui (Δεν παίζει προς το παρόν, θα διορθωθεί)
+Spring Boot Swagger: http://localhost:8080/swagger-ui
+
 FastAPI Docs: http://localhost:8000/docs
 
 ## Example workflow
