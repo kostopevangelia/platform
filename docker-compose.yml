@@ -1,17 +1,18 @@
 services:
   mysql:
     image: mysql:8
+    container_name: mysql
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-payment_service}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change-me}
-    expose:
-      - "3306"                # μόνο στο internal network
+    ports:
+      - "3307:3306"               
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
       - mysql_data:/var/lib/mysql
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p${MYSQL_ROOT_PASSWORD} | grep 'mysqld is alive'"]
-      interval: 10s
+      interval: 5s
       timeout: 5s
       retries: 10
     restart: unless-stopped
@@ -23,15 +24,16 @@ services:
     environment:
       MODEL_DIR: ${MODEL_DIR:-/app/models}
     expose:
-      - "8000"                # δεν κάνει publish στο host
+      - "8000:8000"                
     depends_on:
       mysql:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/docs')"]
-      interval: 10m
+      interval: 5s
       timeout: 5s
       retries: 5
+      start_period: 10s
     restart: unless-stopped
 
   payment-system:
@@ -44,7 +46,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change-me}
       FRAUD_API_URL: http://fraud-detection:8000/predict-fraud
     ports:
-      - "8080"                # τυχαία host port -> ΠΟΤΕ conflict
+      - "8080:8080"                
     depends_on:
       mysql:
         condition: service_healthy
@@ -52,7 +54,7 @@ services:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-fsS", "http://localhost:8080/actuator/health/readiness"]
-      interval: 10s
+      interval: 5s
       timeout: 5s
       retries: 10
       start_period: 30s
