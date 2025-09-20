@@ -2,16 +2,17 @@ services:
   mysql:
     image: mysql:8
     container_name: mysql
+    profiles: ["localdb"]               # local mode μόνο
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-payment_service}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change-me}
     ports:
-      - "3307:3306"               
+      - "3307:3306"
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p${MYSQL_ROOT_PASSWORD} | grep 'mysqld is alive'"]
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p${MYSQL_ROOT_PASSWORD:-change-me} | grep 'mysqld is alive'"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -23,11 +24,8 @@ services:
       dockerfile: Dockerfile
     environment:
       MODEL_DIR: ${MODEL_DIR:-/app/models}
-    expose:
-      - "8000:8000"                
-    depends_on:
-      mysql:
-        condition: service_healthy
+    ports:
+      - "8000:8000"
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/docs')"]
       interval: 5s
@@ -40,16 +38,25 @@ services:
     build:
       context: ./payment-system
       dockerfile: Dockerfile
+    extra_hosts:
+      - "mysql:host-gateway" 
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-payment_service}
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change-me}
+      # JDBC με highest priority
+      JAVA_TOOL_OPTIONS: >-
+        -Dspring.datasource.url=jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true
+        -Dspring.datasource.username=${DB_USER}
+        -Dspring.datasource.password=${DB_PASSWORD}
+        -Dspring.flyway.enabled=false
+        -Dspring.datasource.hikari.jdbc-url=jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true
+      # envs (δευτερεύον)
+      SPRING_DATASOURCE_URL: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_FLYWAY_ENABLED: "false"
       FRAUD_API_URL: http://fraud-detection:8000/predict-fraud
     ports:
-      - "8080:8080"                
+      - "8080:8080"
     depends_on:
-      mysql:
-        condition: service_healthy
       fraud-detection:
         condition: service_healthy
     healthcheck:

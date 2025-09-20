@@ -1,0 +1,5 @@
+services:
+  payment-system:
+    depends_on:
+      mysql:
+        condition: service_healthy
