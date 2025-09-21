@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "f23400e1-1bf4-4e6d-a2fd-bb06c2262333",
+		"name": "Payment Ms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33206915"
+	},
+	"item": [
+		{
+			"name": "VISA - Success",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cardNumber\": \"4242424242424242\",\r\n  \"iban\": null,\r\n  \"amount\": 200,\r\n  \"transactionId\": null,\r\n  \"currency\": \"USD\",\r\n  \"timestamp\": \"2025-09-20T03:00:00\",\r\n  \"paymentType\": \"card\",\r\n  \"transactionType\": \"PAYMENT\",\r\n  \"userId\": \"USER987\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/payments/init",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payments",
+						"init"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VISA (debit) - Success Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cardNumber\": \"4000056655665556\",\r\n  \"iban\": null,\r\n  \"amount\": 200,\r\n  \"transactionId\": null,\r\n  \"currency\": \"USD\",\r\n  \"timestamp\": \"2025-09-20T03:00:00\",\r\n  \"paymentType\": \"card\",\r\n  \"transactionType\": \"PAYMENT\",\r\n  \"userId\": \"USER987\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/payments/init",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payments",
+						"init"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mastercard - Success Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cardNumber\": \"5555555555554444\",\r\n  \"iban\": null,\r\n  \"amount\": 200,\r\n  \"transactionId\": null,\r\n  \"currency\": \"USD\",\r\n  \"timestamp\": \"2025-09-20T03:00:00\",\r\n  \"paymentType\": \"card\",\r\n  \"transactionType\": \"PAYMENT\",\r\n  \"userId\": \"USER987\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/payments/init",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payments",
+						"init"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mastercard (2 series) - Success Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cardNumber\": \"2223003122003222\",\r\n  \"iban\": null,\r\n  \"amount\": 200,\r\n  \"transactionId\": null,\r\n  \"currency\": \"USD\",\r\n  \"timestamp\": \"2025-09-20T03:00:00\",\r\n  \"paymentType\": \"card\",\r\n  \"transactionType\": \"PAYMENT\",\r\n  \"userId\": \"USER987\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/payments/init",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payments",
+						"init"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mastercard (debit) - Success Copy 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cardNumber\": \"5200828282828210\",\r\n  \"iban\": null,\r\n  \"amount\": 200,\r\n  \"transactionId\": null,\r\n  \"currency\": \"USD\",\r\n  \"timestamp\": \"2025-09-20T03:00:00\",\r\n  \"paymentType\": \"card\",\r\n  \"transactionType\": \"PAYMENT\",\r\n  \"userId\": \"USER987\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/payments/init",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payments",
+						"init"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mastercard (prepaid) - Success Copy 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cardNumber\": \"5105105105105100\",\r\n  \"iban\": null,\r\n  \"amount\": 200,\r\n  \"transactionId\": null,\r\n  \"currency\": \"USD\",\r\n  \"timestamp\": \"2025-09-20T03:00:00\",\r\n  \"paymentType\": \"card\",\r\n  \"transactionType\": \"PAYMENT\",\r\n  \"userId\": \"USER987\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/payments/init",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payments",
+						"init"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "American Express - Success Copy 3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cardNumber\": \"378282246310005\",\r\n  \"iban\": null,\r\n  \"amount\": 200,\r\n  \"transactionId\": null,\r\n  \"currency\": \"USD\",\r\n  \"timestamp\": \"2025-09-20T03:00:00\",\r\n  \"paymentType\": \"card\",\r\n  \"transactionType\": \"PAYMENT\",\r\n  \"userId\": \"USER987\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/payments/init",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payments",
+						"init"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "error",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cardNumber\": null,\r\n  \"iban\": null,\r\n  \"transactionId\": null,\r\n  \"amount\": null,\r\n  \"currency\": \"USD\",\r\n  \"timestamp\": \"2025-03-04T19:11:52\",\r\n  \"paymentType\": \"CARD\",\r\n  \"transactionType\": \"PAYMENT\",\r\n  \"userId\": \"USER987\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/payments/init",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payments",
+						"init"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "predict-fraud - Invalid Request",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"amount\": 120.50,\r\n  \"currency\": \"USD\",\r\n  \"paymentType\": \"card\",\r\n  \"transactionType\": \"PAYMENT\",\r\n  \"userId\": \"USER123\",\r\n  \"bin\": \"400005\",\r\n  \"hour\": 14,\r\n  \"day_of_week\": 2\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/predict-fraud",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"predict-fraud"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
