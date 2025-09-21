@@ -1,24 +1,51 @@
-# Thesis Demo
+# Thesis Demo – Payment System + Fraud Detection
 
-This repo links the two submodules:
-- `payment-system`: Java Spring Boot microservice
-- `fraud-detection`: Python FastAPI ML service
+This project demonstrates a **Payment System microservice** with a **Fraud Detection microservice**, running fully containerized with Docker.
 
-## Quick Start
-```bash
-git clone --recurse-submodules <this-repo-url>
-cd thesis-demo
-cp .env.example .env
-docker compose up -d --build
-```
+## 🛠 Prerequisites
 
-## Endpoints
-Spring Boot Swagger: http://localhost:8080/swagger-ui
+- **Docker** and **Docker Compose** installed  
+  - [Install Docker](https://docs.docker.com/get-docker/)
+- **Port availability**: `3307` (MySQL), `8080` (Payment System), `8000` (Fraud Detection)
 
-FastAPI Docs: http://localhost:8000/docs
+## 🚀 Quick Start
 
-## Example workflow
+1. **Clone or unzip** the project locally:
+   ```bash
+   git clone <repo_url> thesis-demo
+   cd thesis-demo
 
+2. Start all services
+    ```bash
+    docker compose --profile localdb --env-file .env up --build -d
+
+3. Run migrations for database
+    ```bash
+    docker compose --profile localdb --env-file .env run --rm db-migrate migrate
+
+4. Verify containers are running:
+    ```bash
+    docker ps
+
+5. You should see:
+    ```bash
+    mysql (healthy)
+    thesis-demo-fraud-detection-1 (healthy)
+    thesis-demo-payment-system-1 (healthy)
+
+##  Access the APIs:
+
+Payment System Swagger: http://localhost:8080/swagger-ui/index.html
+
+Fraud Detection Docs: http://localhost:8000/docs
+
+##  Try it
+### Test with Postman
+Import the included Postman collection (Payment MS.postman_collection.json) and trigger:
+
+POST /payment/init
+
+### Test with curl
 Init Payment:
 
 Copy - Paste this at terminal:
@@ -62,16 +89,7 @@ curl -X POST http://localhost:8000/score \
 ```
 (/payments/init will bring the fraud score)
 
-
-## Troubleshooting
-- If containers fail, check logs:
-  ```bash
-  docker compose logs -f
-
-
-If submodules are empty:
-
-git submodule update --init --recursive
-
-
-Make sure ports 8080, 8000, 3307 are free.
+## Logs
+- To see logs:
+    ```bash
+    docker compose logs -f
