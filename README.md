@@ -12,7 +12,7 @@ This project demonstrates a **Payment System microservice** with a **Fraud Detec
 
 1. **Clone or unzip** the project locally:
    ```bash
-   git clone <repo_url> thesis-demo
+   git clone https://gitlab.com/evangeliakostop/thesis-demo.git
    cd thesis-demo
 
 2. Start all services
