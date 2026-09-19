@@ -21,3 +21,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: Build payment-system
+        working-directory: payment-system
+        run: mvn clean install
