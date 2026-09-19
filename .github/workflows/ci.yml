@@ -32,6 +32,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: Build fraud-detection image
+        run: docker build -t fraud-detection ./fraud-detection
       - name: Build payment-system
         working-directory: payment-system
         run: mvn clean install
+      
