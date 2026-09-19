@@ -10,7 +10,18 @@ on:
 
 jobs:
   build:
+    
+    services:
+      mysql:
+      image: mysql:8
+      env:
+          MYSQL_DATABASE: payment_service
+          MYSQL_ROOT_PASSWORD: change-me
+      ports:
+          - 3307:3306
+    
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
