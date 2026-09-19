@@ -12,5 +12,5 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Say hello
-        run: echo "CI is working!"
+      - name: Checkout repository
+        uses: actions/checkout@v4
