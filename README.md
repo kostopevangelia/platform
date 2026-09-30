@@ -13,7 +13,7 @@ This project demonstrates a **Payment System microservice** with a **Fraud Detec
 1. **Clone or unzip** the project locally:
    ```bash
    git clone https://github.com/kostopevangelia/platform.git
-   cd thesis-demo
+   cd platform
 
 2. Start all services
     ```bash
