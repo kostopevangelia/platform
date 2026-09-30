@@ -57,7 +57,13 @@ services:
       SPRING_DATASOURCE_USERNAME: ${DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       SPRING_FLYWAY_ENABLED: "false"    # db-migrate service
+      
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_INIT_URL: ${STRIPE_INIT_URL}
+      STRIPE_CONFIRM_URL: ${STRIPE_CONFIRM_URL}
+      
       FRAUD_API_URL: http://fraud-detection:8000/predict-fraud
+      FRAUD_API_SECRET_KEY: ${FRAUD_API_SECRET_KEY}
     ports:
       - "8080:8080"
     depends_on:
