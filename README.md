@@ -1,4 +1,4 @@
-# Thesis Demo – Payment System + Fraud Detection
+# Payment System + Fraud Detection
 
 This project demonstrates a **Payment System microservice** with a **Fraud Detection microservice**, running fully containerized with Docker.
 
@@ -12,7 +12,7 @@ This project demonstrates a **Payment System microservice** with a **Fraud Detec
 
 1. **Clone or unzip** the project locally:
    ```bash
-   git clone https://gitlab.com/evangeliakostop/thesis-demo.git
+   git clone https://github.com/kostopevangelia/platform.git
    cd thesis-demo
 
 2. Start all services
